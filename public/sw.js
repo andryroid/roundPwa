@@ -1,4 +1,5 @@
-var index = Math.random();
+//var index = Math.random();
+var index = 1;
 var STATIC_CACHE = "static-v" + index;
 var DYNAMIC_CACHE = "dynamic-v" + index;
 self.addEventListener('install', function (event) {
