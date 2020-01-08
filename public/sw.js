@@ -1,3 +1,5 @@
+importScripts('/src/js/idb.js');
+
 //var index = Math.random();
 var index = 1;
 var STATIC_CACHE = "static-v" + index;
@@ -22,10 +24,20 @@ self.addEventListener('install', function (event) {
                     "/src/js/fetch.js",
                     "/src/js/app.js",
                     "/src/js/feed.js",
+                    "/src/js/idb.js"
                 ]);
             })
     );
 });
+
+//use indexedDB to store data
+var dbPromise = idb.open('dataTest-store', 1, function (db) {
+    if (!db.objectStoreNames.contains('dataTest')) {
+        db.createObjectStore("dataTest", { keyPath: "id" });
+    }
+
+});
+//////////////////
 self.addEventListener('activate', evt => {
     evt.waitUntil(
         caches.keys()
@@ -50,6 +62,15 @@ self.addEventListener('fetch', function (event) {
                 else {
                     return fetch(event.request)
                         .then(function (res) {
+                            //store in indexedDB
+                            dbPromise.then(function (db) {
+                                var tx = db.transaction("dataTest", "readwrite");
+                                var store = tx.objectStore("dataTest");
+                                store.put({
+                                    id: 1, nom: "andry", prenom: "lalaina"
+                                });
+                                return tx.complete;
+                            });
                             return caches.open(DYNAMIC_CACHE)
                                 .then(function (cache) {
                                     cache.put(event.request.url, res.clone());
