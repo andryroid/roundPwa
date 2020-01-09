@@ -1,4 +1,5 @@
 importScripts('/src/js/idb.js');
+importScripts('/src/js/utility.js');
 
 //var index = Math.random();
 var index = 1;
@@ -29,15 +30,6 @@ self.addEventListener('install', function (event) {
             })
     );
 });
-
-//use indexedDB to store data
-var dbPromise = idb.open('dataTest-store', 1, function (db) {
-    if (!db.objectStoreNames.contains('dataTest')) {
-        db.createObjectStore("dataTest", { keyPath: "id" });
-    }
-
-});
-//////////////////
 self.addEventListener('activate', evt => {
     evt.waitUntil(
         caches.keys()
@@ -71,6 +63,7 @@ self.addEventListener('fetch', function (event) {
                                 });
                                 return tx.complete;
                             });
+                            //fin storage indexedDB
                             return caches.open(DYNAMIC_CACHE)
                                 .then(function (cache) {
                                     cache.put(event.request.url, res.clone());
