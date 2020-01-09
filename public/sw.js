@@ -54,16 +54,11 @@ self.addEventListener('fetch', function (event) {
                 else {
                     return fetch(event.request)
                         .then(function (res) {
-                            //store in indexedDB
-                            dbPromise.then(function (db) {
-                                var tx = db.transaction("dataTest", "readwrite");
-                                var store = tx.objectStore("dataTest");
-                                store.put({
-                                    id: 1, nom: "andry", prenom: "lalaina"
-                                });
-                                return tx.complete;
-                            });
-                            //fin storage indexedDB
+                            writeData('posts', {
+                                id: 1,
+                                nom: 'RATSIMISETA',
+                                prenom: 'Andry Lalaina'
+                            })
                             return caches.open(DYNAMIC_CACHE)
                                 .then(function (cache) {
                                     cache.put(event.request.url, res.clone());
