@@ -54,10 +54,8 @@ self.addEventListener('fetch', function (event) {
                 else {
                     return fetch(event.request)
                         .then(function (res) {
-                            writeData('posts', {
-                                id: 1,
-                                nom: 'RATSIMISETA',
-                                prenom: 'Andry Lalaina'
+                            writeData("dataTest", {
+                                id: 1, nom: "ANDRY"
                             })
                             return caches.open(DYNAMIC_CACHE)
                                 .then(function (cache) {
