@@ -56,7 +56,7 @@ self.addEventListener('fetch', function (event) {
                         .then(function (res) {
                             writeData("dataTest", {
                                 id: 1, nom: "ANDRY"
-                            })
+                            });
                             return caches.open(DYNAMIC_CACHE)
                                 .then(function (cache) {
                                     cache.put(event.request.url, res.clone());
@@ -77,4 +77,9 @@ self.addEventListener('fetch', function (event) {
                 }
             })
     );
+
+    readData('dataTest').then(function (data) {
+        console.log(data);
+    });
 });
+

@@ -9,7 +9,7 @@ var dbPromise = idb.open('dataTest-store', 1, function (db) {
 
 function writeData(st, data) {
     //store in indexedDB
-    dbPromise.then(function (db) {
+    return dbPromise.then(function (db) {
         var tx = db.transaction(st, 'readwrite');
         var store = tx.objectStore(st);
         store.put(data);
@@ -17,3 +17,16 @@ function writeData(st, data) {
     });
     //fin storage indexedDBnpm 
 }
+
+//function which get all data
+function readData(st) {
+    return dbPromise.then(function (db) {
+        var tx = db.transaction(st, 'readonly');
+        var store = tx.objectStore(st);
+        return store.getAll();
+    });
+}
+
+//store.get(id)
+//store.clear();
+//store.delete(id);

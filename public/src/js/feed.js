@@ -24,6 +24,7 @@ function openCreatePostModal() {
 
 function closeCreatePostModal() {
   createPostArea.style.display = 'none';
+  console.log('ato');
 }
 
 shareImageButton.addEventListener('click', openCreatePostModal);
