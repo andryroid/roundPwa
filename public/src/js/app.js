@@ -22,7 +22,10 @@ function askPersmission() {
                 navigator.serviceWorker.ready
                     .then(sw => {
                         sw.showNotification('From roundPWA', {
-                            body: 'hey!'
+                            body: 'hey!',
+                            icon: '/src/images/icons/apple-icon-72x72.png',
+                            image: '/src/images/sf-boat.jpg',
+                            vibrate: [200, 50, 200]
                         });
                     });
             }
