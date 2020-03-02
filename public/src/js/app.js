@@ -1,3 +1,4 @@
+var boutonNotification = document.querySelectorAll(".enable-notifications");
 //check if the web browser supports Promise
 if (!window.Promise) window.Promise = Promise;
 
@@ -13,3 +14,16 @@ else {
     console.log('service worker is not enable on your browser');
 }
 
+
+function askPersmission() {
+    Notification.requestPermission(result => {
+        console.log(result);
+    });
+}
+
+if ('Notification' in window) {
+    for (var i = 0; i < boutonNotification.length; i++) {
+        boutonNotification[i].style.display = 'inline-block';
+        boutonNotification[i].addEventListener('click', askPersmission);
+    }
+}

@@ -83,3 +83,13 @@ self.addEventListener('fetch', function (event) {
     });
 });
 
+
+self.addEventListener('sync', function (event) {
+    if (event.tag == "sync-data") {
+        event.waitUntil(
+            //read data 
+            //send to server
+            //remove from idb
+        );
+    }
+});

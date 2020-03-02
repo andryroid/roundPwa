@@ -20,6 +20,7 @@ function openCreatePostModal() {
 
     deferredPrompt = null;
   }
+
 }
 
 function closeCreatePostModal() {
@@ -34,6 +35,7 @@ closeCreatePostModalButton.addEventListener('click', closeCreatePostModal);
   console.log('clicked!');
   if ('caches' in window) {
     caches.open('user-caching')
+    
       .then(function (cache) {
         cache.addAll([
           'https://httpbin.org/get',
@@ -75,3 +77,33 @@ fetch('https://httpbin.org/get')
   .then(function (data) {
     createCard();
   });
+
+document.getElementById("post-btn").addEventListener('click', event => {
+  event.preventDefault();
+  if (document.getElementById('title').value != "" || document.getElementById('location').value != "") {
+    //debut du synchro
+    if ('serviceWorker' in navigator && 'SyncManager' in window) {
+      navigator.serviceWorker.ready
+        .then(function (sw) {
+          var enreg = {
+            id: new Date().toISOString(),
+            title: document.getElementById('title').value,
+            location: document.getElementById('location').value
+          };
+          writeData('dataSync', enreg)
+            .then(function () {
+              return sw.sync.register('sync-data');
+            })
+            .then(function () {
+              alert('enregistrement ok!');
+            });
+        });
+    }
+    else {
+      console.log('send data directly');
+    }
+  }
+  else {
+    alert('input correct');
+  }
+});

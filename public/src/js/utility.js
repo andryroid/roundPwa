@@ -4,6 +4,10 @@ var dbPromise = idb.open('dataTest-store', 1, function (db) {
         db.createObjectStore("dataTest", { keyPath: "id" });
     }
 
+    if (!db.objectStoreNames.contains('dataSync')) {
+        db.createObjectStore("dataSync", { keyPath: "id" });
+    }
+
 });
 //////////////////
 
