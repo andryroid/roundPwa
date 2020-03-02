@@ -17,7 +17,16 @@ else {
 
 function askPersmission() {
     Notification.requestPermission(result => {
-        console.log(result);
+        if (result === "granted") {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready
+                    .then(sw => {
+                        sw.showNotification('From roundPWA', {
+                            body: 'hey!'
+                        });
+                    });
+            }
+        }
     });
 }
 
