@@ -25,7 +25,14 @@ function askPersmission() {
                             body: 'hey!',
                             icon: '/src/images/icons/apple-icon-72x72.png',
                             image: '/src/images/sf-boat.jpg',
-                            vibrate: [200, 50, 200]
+                            vibrate: [200, 50, 200],
+                            tag: 'notification-test',
+                            renotify: false,
+                            actions: [
+                                {
+                                    action: 'confirm', title: 'Click me if you like my app'
+                                }
+                            ]
                         });
                     });
             }
