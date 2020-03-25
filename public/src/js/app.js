@@ -40,9 +40,40 @@ function askPersmission() {
     });
 }
 
+//push notification
+function pushNofifSubscribe() {
+    var swP;
+    if (!('serviceWorker' in navigator)) {
+        return;
+    }
+    else {
+        navigator.serviceWorker.ready
+            .then(function (swreg) {
+                swP = swreg;
+                return swreg.pushManager.getSubscription();
+            })
+            .then(function (pM) {
+                if (pM === null) {
+                    //subscribe to push notification
+                    return swP.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: 'andry'
+                    });
+                }
+                else {
+                    //we have already a push subscription
+                }
+            })
+            .then(function (newSwP) {
+                console.log(newSwP);
+            });
+    }
+}
+
+
 if ('Notification' in window) {
     for (var i = 0; i < boutonNotification.length; i++) {
         boutonNotification[i].style.display = 'inline-block';
-        boutonNotification[i].addEventListener('click', askPersmission);
+        boutonNotification[i].addEventListener('click', pushNofifSubscribe);
     }
 }
