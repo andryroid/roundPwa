@@ -57,15 +57,17 @@ function pushNofifSubscribe() {
                     //subscribe to push notification
                     return swP.pushManager.subscribe({
                         userVisibleOnly: true,
-                        applicationServerKey: 'andry'
+                        applicationServerKey: urlBase64ToUint8Array('BDHR9dWaQ5bTlsRL4oU-lGI4Kg2EihC7ipDaASljLmDttPSuDx6z_vx-lphGclX6WWialNLvDSJSLhDHz3ksFAk')
                     });
                 }
                 else {
                     //we have already a push subscription
+                    console.log('makato le');
                 }
             })
             .then(function (newSwP) {
                 console.log(newSwP);
+                console.log(JSON.stringify(newSwP));
             });
     }
 }

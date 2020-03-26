@@ -103,3 +103,9 @@ self.addEventListener('notificationclick', event => {
         notification.close();
     }
 });
+
+
+//listening to push event
+self.addEventListener('push', function (event) {
+    console.log(event);
+});
