@@ -3,10 +3,24 @@ var createPostArea = document.querySelector('#create-post');
 var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
 var sharedMomentsArea = document.querySelector('#shared-moments');
 
-
+function initializeCamera() {
+  if ('getUserMedia' in navigator.mediaDevices) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        document.querySelector("#create-post video").style.display = 'block';
+        document.querySelector("#player").srcObject = stream;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+  else {
+    console.log('erreur media');
+  }
+}
 function openCreatePostModal() {
   createPostArea.style.display = 'block';
-  //initializeCamera();
+  initializeCamera();
   /*if (deferredPrompt) {
     deferredPrompt.prompt();
 
@@ -26,7 +40,8 @@ function openCreatePostModal() {
 
 function closeCreatePostModal() {
   createPostArea.style.display = 'none';
-  console.log('ato');
+  document.querySelector("#create-post video").style.display = 'none';
+  document.querySelector("#player").srcObject = null;
 }
 
 shareImageButton.addEventListener('click', openCreatePostModal);
