@@ -1,4 +1,9 @@
-
+//cheklist before use it
+/*
+* 1 - npm install workbox-cli
+* 2 - add into script : { "workboxcli": "inject:manifest" }
+* 3 - to minifyjs => npm install uglify-js and add into script   
+*/
 
 
 importScripts('workbox-sw.prod.v2.0.0.js');
